@@ -26,12 +26,14 @@ Partial Class Form_Settings
         Me.TextBox_Company_Name = New System.Windows.Forms.TextBox()
         Me.Label_Company_Name = New System.Windows.Forms.Label()
         Me.Button_Go = New System.Windows.Forms.Button()
+        Me.Label_Print_hash = New System.Windows.Forms.Label()
+        Me.ComboBox_Hash = New System.Windows.Forms.ComboBox()
         Me.SuspendLayout()
         '
         'TextBox_Company_Name
         '
         Me.TextBox_Company_Name.Location = New System.Drawing.Point(127, 19)
-        Me.TextBox_Company_Name.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TextBox_Company_Name.Margin = New System.Windows.Forms.Padding(4)
         Me.TextBox_Company_Name.Name = "TextBox_Company_Name"
         Me.TextBox_Company_Name.Size = New System.Drawing.Size(392, 22)
         Me.TextBox_Company_Name.TabIndex = 0
@@ -39,7 +41,7 @@ Partial Class Form_Settings
         'Label_Company_Name
         '
         Me.Label_Company_Name.AutoSize = True
-        Me.Label_Company_Name.Location = New System.Drawing.Point(13, 19)
+        Me.Label_Company_Name.Location = New System.Drawing.Point(13, 21)
         Me.Label_Company_Name.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label_Company_Name.Name = "Label_Company_Name"
         Me.Label_Company_Name.Size = New System.Drawing.Size(106, 16)
@@ -58,18 +60,39 @@ Partial Class Form_Settings
         Me.Button_Go.Text = "Save"
         Me.Button_Go.UseVisualStyleBackColor = False
         '
+        'Label_Print_hash
+        '
+        Me.Label_Print_hash.AutoSize = True
+        Me.Label_Print_hash.Location = New System.Drawing.Point(11, 52)
+        Me.Label_Print_hash.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label_Print_hash.Name = "Label_Print_hash"
+        Me.Label_Print_hash.Size = New System.Drawing.Size(180, 16)
+        Me.Label_Print_hash.TabIndex = 10
+        Me.Label_Print_hash.Text = "Print Hash Underneath Photo"
+        '
+        'ComboBox_Hash
+        '
+        Me.ComboBox_Hash.FormattingEnabled = True
+        Me.ComboBox_Hash.Items.AddRange(New Object() {"True", "False"})
+        Me.ComboBox_Hash.Location = New System.Drawing.Point(198, 49)
+        Me.ComboBox_Hash.Name = "ComboBox_Hash"
+        Me.ComboBox_Hash.Size = New System.Drawing.Size(121, 24)
+        Me.ComboBox_Hash.TabIndex = 11
+        '
         'Form_Settings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Cornsilk
         Me.ClientSize = New System.Drawing.Size(530, 167)
+        Me.Controls.Add(Me.ComboBox_Hash)
+        Me.Controls.Add(Me.Label_Print_hash)
         Me.Controls.Add(Me.Button_Go)
         Me.Controls.Add(Me.Label_Company_Name)
         Me.Controls.Add(Me.TextBox_Company_Name)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "Form_Settings"
         Me.Text = "Settings"
         Me.ResumeLayout(False)
@@ -80,4 +103,6 @@ Partial Class Form_Settings
     Friend WithEvents TextBox_Company_Name As TextBox
     Friend WithEvents Label_Company_Name As Label
     Friend WithEvents Button_Go As Button
+    Friend WithEvents Label_Print_hash As Label
+    Friend WithEvents ComboBox_Hash As ComboBox
 End Class

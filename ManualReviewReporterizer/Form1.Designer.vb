@@ -25,8 +25,8 @@ Partial Class Form1
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.Button_Go = New System.Windows.Forms.Button()
-        Me.TextBox_DFU_REF = New System.Windows.Forms.TextBox()
-        Me.Label_DFU_REF = New System.Windows.Forms.Label()
+        Me.TextBox_Case_REF = New System.Windows.Forms.TextBox()
+        Me.Label_Case_REF = New System.Windows.Forms.Label()
         Me.Label_examiner_name = New System.Windows.Forms.Label()
         Me.TextBox_Examiner_name = New System.Windows.Forms.TextBox()
         Me.Label_Save_Location = New System.Windows.Forms.Label()
@@ -55,11 +55,13 @@ Partial Class Form1
         Me.Label_Ignore_Tickboxes = New System.Windows.Forms.Label()
         Me.CheckBox_90 = New System.Windows.Forms.CheckBox()
         Me.CheckBox_270 = New System.Windows.Forms.CheckBox()
+        Me.PictureBox_settings = New System.Windows.Forms.PictureBox()
         CType(Me.PictureBox_Image_Display, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
+        CType(Me.PictureBox_settings, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Button_Go
@@ -74,23 +76,23 @@ Partial Class Form1
         Me.Button_Go.Text = "Reportorize....."
         Me.Button_Go.UseVisualStyleBackColor = False
         '
-        'TextBox_DFU_REF
+        'TextBox_Case_REF
         '
-        Me.TextBox_DFU_REF.Location = New System.Drawing.Point(12, 113)
-        Me.TextBox_DFU_REF.Margin = New System.Windows.Forms.Padding(4)
-        Me.TextBox_DFU_REF.Name = "TextBox_DFU_REF"
-        Me.TextBox_DFU_REF.Size = New System.Drawing.Size(265, 22)
-        Me.TextBox_DFU_REF.TabIndex = 1
+        Me.TextBox_Case_REF.Location = New System.Drawing.Point(12, 113)
+        Me.TextBox_Case_REF.Margin = New System.Windows.Forms.Padding(4)
+        Me.TextBox_Case_REF.Name = "TextBox_Case_REF"
+        Me.TextBox_Case_REF.Size = New System.Drawing.Size(265, 22)
+        Me.TextBox_Case_REF.TabIndex = 1
         '
-        'Label_DFU_REF
+        'Label_Case_REF
         '
-        Me.Label_DFU_REF.AutoSize = True
-        Me.Label_DFU_REF.Location = New System.Drawing.Point(12, 93)
-        Me.Label_DFU_REF.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label_DFU_REF.Name = "Label_DFU_REF"
-        Me.Label_DFU_REF.Size = New System.Drawing.Size(105, 16)
-        Me.Label_DFU_REF.TabIndex = 2
-        Me.Label_DFU_REF.Text = "DFU Reference:"
+        Me.Label_Case_REF.AutoSize = True
+        Me.Label_Case_REF.Location = New System.Drawing.Point(12, 93)
+        Me.Label_Case_REF.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label_Case_REF.Name = "Label_Case_REF"
+        Me.Label_Case_REF.Size = New System.Drawing.Size(109, 16)
+        Me.Label_Case_REF.TabIndex = 2
+        Me.Label_Case_REF.Text = "Case Reference:"
         '
         'Label_examiner_name
         '
@@ -135,7 +137,7 @@ Partial Class Form1
         Me.Label_Drap_Drop.ForeColor = System.Drawing.SystemColors.ButtonShadow
         Me.Label_Drap_Drop.Location = New System.Drawing.Point(13, 9)
         Me.Label_Drap_Drop.Name = "Label_Drap_Drop"
-        Me.Label_Drap_Drop.Size = New System.Drawing.Size(700, 74)
+        Me.Label_Drap_Drop.Size = New System.Drawing.Size(683, 74)
         Me.Label_Drap_Drop.TabIndex = 7
         Me.Label_Drap_Drop.Text = "Drag Photos Here"
         Me.Label_Drap_Drop.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -366,12 +368,24 @@ Partial Class Form1
         Me.CheckBox_270.Text = "270°"
         Me.CheckBox_270.UseVisualStyleBackColor = True
         '
+        'PictureBox_settings
+        '
+        Me.PictureBox_settings.BackgroundImage = CType(resources.GetObject("PictureBox_settings.BackgroundImage"), System.Drawing.Image)
+        Me.PictureBox_settings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.PictureBox_settings.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.PictureBox_settings.Location = New System.Drawing.Point(696, 9)
+        Me.PictureBox_settings.Name = "PictureBox_settings"
+        Me.PictureBox_settings.Size = New System.Drawing.Size(24, 18)
+        Me.PictureBox_settings.TabIndex = 28
+        Me.PictureBox_settings.TabStop = False
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Cornsilk
         Me.ClientSize = New System.Drawing.Size(720, 561)
+        Me.Controls.Add(Me.PictureBox_settings)
         Me.Controls.Add(Me.CheckBox_270)
         Me.Controls.Add(Me.CheckBox_90)
         Me.Controls.Add(Me.Label_Ignore_Tickboxes)
@@ -393,8 +407,8 @@ Partial Class Form1
         Me.Controls.Add(Me.TextBox_save_location)
         Me.Controls.Add(Me.Label_examiner_name)
         Me.Controls.Add(Me.TextBox_Examiner_name)
-        Me.Controls.Add(Me.Label_DFU_REF)
-        Me.Controls.Add(Me.TextBox_DFU_REF)
+        Me.Controls.Add(Me.Label_Case_REF)
+        Me.Controls.Add(Me.TextBox_Case_REF)
         Me.Controls.Add(Me.Button_Go)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -410,14 +424,15 @@ Partial Class Form1
         Me.SplitContainer1.Panel2.ResumeLayout(False)
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
+        CType(Me.PictureBox_settings, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
 
     Friend WithEvents Button_Go As Button
-    Friend WithEvents TextBox_DFU_REF As TextBox
-    Friend WithEvents Label_DFU_REF As Label
+    Friend WithEvents TextBox_Case_REF As TextBox
+    Friend WithEvents Label_Case_REF As Label
     Friend WithEvents Label_examiner_name As Label
     Friend WithEvents TextBox_Examiner_name As TextBox
     Friend WithEvents Label_Save_Location As Label
@@ -446,4 +461,5 @@ Partial Class Form1
     Friend WithEvents Label_Ignore_Tickboxes As Label
     Friend WithEvents CheckBox_90 As CheckBox
     Friend WithEvents CheckBox_270 As CheckBox
+    Friend WithEvents PictureBox_settings As PictureBox
 End Class

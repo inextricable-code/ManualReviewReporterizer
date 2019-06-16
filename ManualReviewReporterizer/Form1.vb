@@ -2,6 +2,8 @@
 Imports PdfSharp.Drawing
 Imports PdfSharp.Pdf
 Imports System.IO
+Imports System.Security.Cryptography
+
 
 Public Class Form1
 
@@ -20,7 +22,7 @@ Public Class Form1
     '#          main program to write the pdf etc             #
     '##########################################################
     Private Sub Button_Go_Click(sender As Object, e As EventArgs) Handles Button_Go.Click
-        If TextBox_save_location.Text = "" Or TextBox_Date_of_ME.Text = "" Or TextBox_DFU_REF.Text = "" Or TextBox_Examiner_name.Text = "" Or TextBox_Page_Header.Text = "" Then
+        If TextBox_save_location.Text = "" Or TextBox_Date_of_ME.Text = "" Or TextBox_Case_REF.Text = "" Or TextBox_Examiner_name.Text = "" Or TextBox_Page_Header.Text = "" Then
             MsgBox("Fill out all the details", MsgBoxStyle.OkOnly, "Don't be lazy")
         Else
             Dim pics_per_page As Int16 = ComboBox_per_Page.Text
@@ -128,7 +130,7 @@ Public Class Form1
     '########################################################
     Private Sub unlock_form(lock_unlock)
         TextBox_Date_of_ME.Enabled = lock_unlock
-        TextBox_DFU_REF.Enabled = lock_unlock
+        TextBox_Case_REF.Enabled = lock_unlock
         TextBox_Examiner_name.Enabled = lock_unlock
         TextBox_Page_Header.Enabled = lock_unlock
         TextBox_save_location.Enabled = lock_unlock
@@ -594,7 +596,7 @@ Public Class Form1
         Dim font As XFont = New XFont("Verdana", 20, XFontStyle.Bold)
         Dim todays_date = Date.Now().ToString("yyyy-MM-dd") 'get the current date
         title_gfx.DrawString(header_text, font, XBrushes.Black, New XRect(0, 50, title_page.Width.Point, title_page.Height.Point), XStringFormats.TopCenter)
-        title_gfx.DrawString("DFU Reference: " & TextBox_DFU_REF.Text, font, XBrushes.Black, New XRect(0, 150, title_page.Width.Point, title_page.Height.Point), XStringFormats.TopCenter)
+        title_gfx.DrawString("Case Reference: " & TextBox_Case_REF.Text, font, XBrushes.Black, New XRect(0, 150, title_page.Width.Point, title_page.Height.Point), XStringFormats.TopCenter)
         title_gfx.DrawString("Manual Examination Date: " & TextBox_Date_of_ME.Text, font, XBrushes.Black, New XRect(0, 200, title_page.Width.Point, title_page.Height.Point), XStringFormats.TopCenter)
         title_gfx.DrawString("Examiner: " & TextBox_Examiner_name.Text, font, XBrushes.Black, New XRect(0, 250, title_page.Width.Point, title_page.Height.Point), XStringFormats.TopCenter)
         title_gfx.DrawString(My.Settings.company_name, font, XBrushes.Black, New XRect(0, 300, title_page.Width.Point, title_page.Height.Point), XStringFormats.TopCenter)
@@ -607,7 +609,7 @@ Public Class Form1
         title_gfx.Dispose()
     End Sub
 
-    '###################### DEV ##############################
+    '###########################################################
     '# Sub Name: write_single_file_name                 #
     '# Passed Variables: picture_list as list           #
     '#                   i as integer                   #
@@ -619,8 +621,16 @@ Public Class Form1
     '####################### DEV #############################
     Private Sub write_single_file_name(picture_list, i, page, gfx, footer_font, file_name_x, file_name_y)
         Dim name_of_file As String = Path.GetFileName(picture_list(i))
-        gfx.DrawString("File Name: " & name_of_file, footer_font, XBrushes.Black, New XRect(file_name_x, file_name_y + 10, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
+        gfx.DrawString("File Name: " & name_of_file, footer_font, XBrushes.Black, New XRect(file_name_x, file_name_y + 5, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
+
+
+        If My.Settings.hash_wanted = True Then
+            Dim hash_of_file As String = get_file_hash(picture_list(i), "MD5")
+            gfx.DrawString("File Hash: " & hash_of_file, footer_font, XBrushes.Black, New XRect(file_name_x, file_name_y + 17, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
+        End If
+
     End Sub
+
 
     '########################################################
     '# Sub Name: Label_Drap_Drop_DragDrop                   #
@@ -916,4 +926,60 @@ Public Class Form1
     End Sub
 
 
+    '####################################################
+    '# Name:    get_file_hash                           #
+    '# Purpose: Resturns a hash of the input string     #
+    '# Inputs:  filepath, crypto_type                   #
+    '# Returns: hash_hex = hash returned as string      #
+    '####################################################
+    Function get_file_hash(filepath, crypto_type)
+        Dim hash ' We declare the variable : hash
+        Select Case (crypto_type)
+            Case "SHA1"
+                hash = SHA1.Create()
+            Case "MD5"
+                hash = MD5.Create
+            Case "SHA256"
+                hash = SHA256.Create()
+            Case "SHA512"
+                hash = SHA512.Create()
+            Case "SHA384"
+                hash = SHA384.Create()
+        End Select
+        ' We declare a variable to be an array of bytes
+        Dim hashValue() As Byte
+        ' We create a FileStream for the file passed as a parameter
+        Dim fileStream As FileStream = File.OpenRead(filepath)
+        ' We position the cursor at the beginning of stream
+        fileStream.Position = 0
+        ' We calculate the hash of the file
+        hashValue = hash.ComputeHash(fileStream)
+        ' The array of bytes is converted into hexadecimal before it can be read easily
+        Dim hash_hex = PrintByteArray(hashValue)
+        ' We close the open file
+        fileStream.Close()
+        Return (hash_hex)
+    End Function
+
+    '#########################################################
+    '# Name:    PrintByteArray                               #
+    '# Purpose: Returns the hex value, req for get_file_hash #
+    '# Inputs:  array()                                      #
+    '# Returns: hash_value = hex value                       #
+    '#########################################################
+    Public Function PrintByteArray(ByVal array() As Byte)
+        Dim hex_value As String = ""
+        ' We traverse the array of bytes
+        Dim i As Integer
+        For i = 0 To array.Length - 1
+            ' We convert each byte in hexadecimal
+            hex_value += array(i).ToString("X2")
+        Next i
+        ' We return the string in lowercase
+        Return hex_value.ToLower
+    End Function
+
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox_settings.Click
+        Form_Settings.Show()
+    End Sub
 End Class
