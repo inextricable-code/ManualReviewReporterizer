@@ -663,60 +663,6 @@ Public Class Form1
         End If
     End Sub
 
-
-    '##############################################################
-    '# Sub Name: Label_Drap_Drop_DoubleClick                      #
-    '# Passed Variables: none                                     #
-    '# Purpose: handles the double click to import pictures from  #
-    '#          the SD Card                                       #
-    '##############################################################
-    'Private Sub Label_Drap_Drop_DoubleClick(sender As Object, e As EventArgs) Handles Label_Drap_Drop.DoubleClick
-    ' Dim name As String = "DFUCAMERA"
-    ' Dim drive As String = GetDriveLetter(name)
-    ' If Not IsNothing(drive) Then
-    '         get_files_from_usb(drive)
-    ' End If
-    'End Sub
-
-
-    '##############################################################
-    '# Sub Name: get_files_from_usb                               #
-    '# Passed Variables: drive as string                          #
-    '# Purpose: Imports any .jpg files from the SD card into the  #
-    '#          listbox files. Does not move the files!           #
-    '##############################################################
-    Private Sub get_files_from_usb(drive)
-        Dim results = Directory.GetFiles(drive, "*.jpg", SearchOption.AllDirectories)
-        For Each photo In results
-            If Not ListBox_Selected_Files.Items.Contains(photo) Then 'avoid duplicates
-                ListBox_Selected_Files.Items.Add(photo)
-            End If
-        Next
-        ListBox_Selected_Files.Sorted = True 'sorts the listbox alphabetically
-        Label_Selected_Files.Text = "Selected Files (" & ListBox_Selected_Files.Items.Count & "):"
-    End Sub
-
-
-    '########################################################
-    '# Function Name: GetDriveLetter                        #
-    '# Passed Variables: Volume as string                   #
-    '# Returns: DriveLetter/Nothing as String               #
-    '# Purpose: Returns the drive letter that is associated #
-    '#          with the variable passed (i.e. DFUCAMERA)   #
-    '########################################################
-    Private Function GetDriveLetter(ByVal Volume As String) As String
-        For i As Integer = 0 To My.Computer.FileSystem.Drives.Count - 1
-            Try
-                If My.Computer.FileSystem.Drives(i).DriveType = DriveType.Removable AndAlso My.Computer.FileSystem.Drives(i).VolumeLabel.ToLower = Volume.ToLower Then
-                    Return My.Computer.FileSystem.Drives(i).RootDirectory.Name
-                End If
-            Catch ex As Exception
-            End Try
-        Next
-        Return Nothing
-    End Function
-
-
     '##############################################################
     '# Sub Name: Form1_Load                                       #
     '# Passed Variables: none                                     #
